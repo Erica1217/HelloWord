@@ -10,7 +10,7 @@ class DBManager:
 
     def __init__(self):
         self.GRADE_CUT = 5
-        self.load()
+        # self.load()
         self.__all_words={}
         self.__known_words={}
         self.__unknown_word={}
