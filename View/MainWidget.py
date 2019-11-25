@@ -14,6 +14,7 @@ class main_ui(QWidget):
     def init_ui(self):
         self.resize(700,540)
         self.setWindowTitle("Hello Word!")
+
         title_label = QLabel("HELLO WORD!")
         title_label.setStyleSheet("color:white;")
 
@@ -22,19 +23,11 @@ class main_ui(QWidget):
 
         daily_btn=QPushButton("Daily")
         daily_btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        daily_btn.setStyleSheet("background-color: rgb(233, 211, 245, 100)")
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("../OneDrive/사진/sw2/947540.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        daily_btn.setIcon(icon1)
-        daily_btn.setIconSize(QtCore.QSize(150, 140))
+        daily_btn.setStyleSheet("background-color: rgb(233, 211, 245, 100) ")
 
         words_btn=QPushButton("Words")
         words_btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         words_btn.setStyleSheet("background-color: rgb(233, 211, 245, 100)")
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("../OneDrive/사진/sw2/947540.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        words_btn.setIcon(icon2)
-        words_btn.setIconSize(QtCore.QSize(150, 140))
 
         quiz_btn=QPushButton("Quiz")
         quiz_btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
@@ -44,15 +37,12 @@ class main_ui(QWidget):
         repeat_btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         repeat_btn.setStyleSheet("background-color: rgb(233, 211, 245, 100)")
 
-
-
         hbox1=QHBoxLayout()
         hbox1.addWidget(title_label)
         hbox2=QHBoxLayout()
         hbox2.addWidget(daily_btn)
         hbox2.addWidget(words_btn)
         hbox3=QHBoxLayout()
-
         hbox3.addWidget(quiz_btn)
         hbox3.addWidget(repeat_btn)
         vbox=QVBoxLayout()
