@@ -1,5 +1,6 @@
 import sys
 
+from PyQt5 import Qt
 from PyQt5.QtWidgets import *
 from qtpy import QtGui, QtCore
 
@@ -13,12 +14,15 @@ class main_ui(QWidget):
     def init_ui(self):
         self.resize(700,540)
         self.setWindowTitle("Hello Word!")
-        self.setStyleSheet("background-color: rgb(251, 183, 191)")
+        title_label = QLabel("HELLO WORD!")
+        title_label.setStyleSheet("color:white;")
+
+        self.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgb(200, 191, 231), stop:1 rgb(252, 171, 205));")
         self.show()
 
         daily_btn=QPushButton("Daily")
         daily_btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        daily_btn.setStyleSheet("background-color: rgb(233, 211, 245)")
+        daily_btn.setStyleSheet("background-color: rgb(233, 211, 245, 100)")
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("../OneDrive/사진/sw2/947540.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         daily_btn.setIcon(icon1)
@@ -26,7 +30,7 @@ class main_ui(QWidget):
 
         words_btn=QPushButton("Words")
         words_btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        words_btn.setStyleSheet("background-color: rgb(233, 211, 245)")
+        words_btn.setStyleSheet("background-color: rgb(233, 211, 245, 100)")
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap("../OneDrive/사진/sw2/947540.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         words_btn.setIcon(icon2)
@@ -34,24 +38,27 @@ class main_ui(QWidget):
 
         quiz_btn=QPushButton("Quiz")
         quiz_btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        quiz_btn.setStyleSheet("background-color: rgb(233, 211, 245)")
+        quiz_btn.setStyleSheet("background-color: rgb(233, 211, 245, 100)")
 
         repeat_btn = QPushButton("Repeat")
         repeat_btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        repeat_btn.setStyleSheet("background-color: rgb(233, 211, 245)")
+        repeat_btn.setStyleSheet("background-color: rgb(233, 211, 245, 100)")
 
 
 
         hbox1=QHBoxLayout()
-        hbox1.addWidget(daily_btn)
-        hbox1.addWidget(words_btn)
+        hbox1.addWidget(title_label)
         hbox2=QHBoxLayout()
+        hbox2.addWidget(daily_btn)
+        hbox2.addWidget(words_btn)
+        hbox3=QHBoxLayout()
 
-        hbox2.addWidget(quiz_btn)
-        hbox2.addWidget(repeat_btn)
+        hbox3.addWidget(quiz_btn)
+        hbox3.addWidget(repeat_btn)
         vbox=QVBoxLayout()
         vbox.addLayout(hbox1)
         vbox.addLayout(hbox2)
+        vbox.addLayout(hbox3)
 
         self.setLayout(vbox)
 
