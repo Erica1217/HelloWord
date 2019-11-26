@@ -39,8 +39,8 @@ class main_ui(QWidget):
         words_btn=QPushButton("Words")
         words_btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         words_btn.setStyleSheet(BTN_STYLE_SHEET)
-        daily_btn.setIconSize(icon_size)
-        daily_btn.setIcon(words_icon)
+        words_btn.setIconSize(icon_size)
+        words_btn.setIcon(words_icon)
 
         quiz_icon = QtGui.QIcon('../resource/icon/ic_quiz.png')
         quiz_btn=QPushButton("Quiz")
@@ -53,8 +53,8 @@ class main_ui(QWidget):
         repeat_btn = QPushButton("Repeat")
         repeat_btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         repeat_btn.setStyleSheet(BTN_STYLE_SHEET)
-        quiz_btn.setIconSize(icon_size)
-        quiz_btn.setIcon(repeat_icon)
+        repeat_btn.setIconSize(icon_size)
+        repeat_btn.setIcon(repeat_icon)
 
         hbox1=QHBoxLayout()
         hbox1.addWidget(title_label)
