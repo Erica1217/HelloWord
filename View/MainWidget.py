@@ -2,7 +2,7 @@ import sys
 
 from PyQt5 import Qt
 from PyQt5.QtWidgets import *
-from qtpy import QtGui, QtCore
+# from qtpy import QtGui, QtCore
 
 
 class main_ui(QWidget):
