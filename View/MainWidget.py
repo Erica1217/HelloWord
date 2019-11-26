@@ -26,7 +26,7 @@ class main_ui(QWidget):
         self.show()
 
         icon_size = QSize(150, 150)
-        BTN_STYLE_SHEET = "background - color: rgb(233, 211, 245, 100)"
+        BTN_STYLE_SHEET = "background-color: rgb(233, 211, 245, 100)"
 
         daily_icon = QtGui.QIcon('../resource/icon/ic_daily.png')
         daily_btn=QPushButton()
