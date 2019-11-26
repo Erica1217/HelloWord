@@ -11,22 +11,21 @@ class DBManager:
     def __init__(self):
         self.GRADE_CUT = 5
         # self.load()
-        self.__all_words={}
-        self.__known_words={}
-        self.__unknown_word={}
+        self.__all_words = {}
+        self.__known_words = {}
+        self.__unknown_word = {}
         self.__daily_words = {}
 
     '''
     이미 있는 단어는 false, 없는 단어는 true 리턴
     '''
-    def add_word(self, word, mean):
-        new_word = Word(word, mean)
-        for i in self.__all_words:
-            if i.eng == word:
-                return False
-        self.__all_words[word] = new_word
-        self.__known_words[word] = new_word
-        return True
+    def add_word(self, eng, kor):
+        new_word = Word(eng, kor)
+        if eng not in self.__all_words:
+            self.__all_words[eng] = new_word
+            self.__known_words[eng] = new_word
+            return True
+        return False
 
     '''
     csv파일을 선택하여 여러개 한번에 추가
@@ -53,7 +52,7 @@ class DBManager:
         return self.__all_words
 
     def get_know_words(self):
-        return self.get_know_words()
+        return self.__known_words
 
     def get_unknown_words(self):
         return self.__unknown_word
