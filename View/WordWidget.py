@@ -29,9 +29,10 @@ class WordWidget(QWidget):
         tab_widget = QTabWidget()
 
         title_label = QLabel("WORD")
-        title_label.setStyleSheet("color:white;")
+        title_label.setStyleSheet("background-color: rgb(255,255,255,0); color:white;")
 
         add_btn = QPushButton()
+        add_btn.setStyleSheet("background-color: rgb(255,255,255,0);")
         add_icon = QIcon("../resource/icon/ic_add.png")
         add_btn.setIcon(add_icon)
         add_btn.setIconSize(QSize(70,70))
