@@ -14,10 +14,11 @@ class AddWidget(QWidget):
         super().__init__()
         self.dbManager= DBManager()
         self.kor_edit = QTextEdit()
+        self.kor_edit.setMaximumHeight(60)
         self.kor_edit.setStyleSheet(("background-color: rgb(255, 255, 255, 100)"))
-        self.kor_edit.setSizePolicy(30,20)
 
         self.eng_edit = QTextEdit()
+        self.eng_edit.setMaximumHeight(60)
         self.eng_edit.setStyleSheet(("background-color: rgb(255, 255, 255, 100)"))
         self.init_ui()
 
@@ -36,6 +37,7 @@ class AddWidget(QWidget):
         title_label.setAlignment(Qt.AlignCenter)
         title_label.setFont(QtGui.QFont("Arial Rounded MT Bold", 20))
         title_label.setStyleSheet("background-color: rgb(255,255,255,0); color:white;")
+
 
         top_layout = QHBoxLayout()
         top_layout.addStretch(1)
