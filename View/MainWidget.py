@@ -4,6 +4,10 @@ from PyQt5 import Qt
 from PyQt5.QtWidgets import *
 from qtpy import QtGui, QtCore
 from PyQt5.QtCore import *
+from DBManager import DBManager
+
+
+
 
 
 class MainWidget(QWidget):
@@ -37,7 +41,7 @@ class MainWidget(QWidget):
         daily_btn.setIconSize(icon_size)
         daily_btn.setIcon(daily_icon)
         daily_label=QLabel("DAILY")
-        daily_label.move(10,10)
+        daily_label.move(10,100)
 
         words_icon = QtGui.QIcon('../resource/icon/ic_words.png')
         words_btn=QPushButton()
@@ -74,6 +78,17 @@ class MainWidget(QWidget):
         vbox.addLayout(hbox3)
 
         self.setLayout(vbox)
+'''
+def daily_clicked(self):
+            self.dbManager = DBManager()
+            word
+            words = self.__daily_words
+
+
+
+
+        daily_btn.clicked.connect(daily_clicked())
+'''
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
