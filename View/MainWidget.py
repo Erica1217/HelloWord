@@ -5,15 +5,16 @@ from PyQt5.QtWidgets import *
 from qtpy import QtGui, QtCore
 from PyQt5.QtCore import *
 from DBManager import DBManager
-
-
-
+from View.DailyWidget import DailyWidget
+from View.QuizWidget import QuizWidget
+from View.WordWidget import WordWidget
 
 
 class MainWidget(QWidget):
-    def __init__(self):
-        super().__init__()
-
+    def __init__(self, parent=None):
+        # super().__init__()
+        super(MainWidget, self).__init__(parent)
+        self.thisWindow = self
         self.init_ui()
 
 
@@ -77,18 +78,27 @@ class MainWidget(QWidget):
         vbox.addLayout(hbox2)
         vbox.addLayout(hbox3)
 
+        daily_btn.clicked.connect(self.daily_clicked)
+        words_btn.clicked.connect(self.words_clicked)
+        quiz_btn.clicked.connect(self.quiz_clicked)
+        # repeat_btn.clicked.connect(self.repeat_clicked)
+
         self.setLayout(vbox)
-'''
-def daily_clicked(self):
-            self.dbManager = DBManager()
-            word
-            words = self.__daily_words
+
+    def daily_clicked(self):
+        self.thisWindow = DailyWidget()
+        self.thisWindow.show()
+
+    def words_clicked(self):
+        self.thisWindow = WordWidget()
+        self.thisWindow.show()
+
+    def quiz_clicked(self):
+        self.thisWindow = QuizWidget()
+        self.thisWindow.show()
+    # def repeat_clicked(self):
 
 
-
-
-        daily_btn.clicked.connect(daily_clicked())
-'''
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
