@@ -20,7 +20,7 @@ class DBManager:
     이미 있는 단어는 false, 없는 단어는 true 리턴
     '''
     def add_word(self, eng, kor):
-        new_word = Word(eng, kor)
+        new_word = Word(eng, kor, 0)
         if eng not in self.__all_words:
             self.__all_words[eng] = new_word
             self.__known_words[eng] = new_word
