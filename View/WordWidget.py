@@ -28,7 +28,10 @@ class WordWidget(QWidget):
         top_layout = QHBoxLayout()
         tab_widget = QTabWidget()
 
-        title_label = QLabel("WORD")
+        title_label = QLabel("WORDS")
+        title_label.setStyleSheet("color:white;")
+        title_label.setAlignment(Qt.AlignCenter)
+        title_label.setFont(QtGui.QFont("Arial Rounded MT Bold", 20))
         title_label.setStyleSheet("background-color: rgb(255,255,255,0); color:white;")
 
         add_btn = QPushButton()

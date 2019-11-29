@@ -23,6 +23,8 @@ class DailyWidget(QWidget):
         main_layout = QVBoxLayout()
         daily_label = QLabel("DAILY")
         daily_label.setAlignment(Qt.AlignCenter)
+        daily_label.setStyleSheet("color:white;")
+        daily_label.setFont(QtGui.QFont("Arial Rounded MT Bold", 20))
 
         word_list_layout = QHBoxLayout()
 
@@ -33,6 +35,8 @@ class DailyWidget(QWidget):
         word_list_table1.setRowCount(10)
         word_list_table2.setColumnCount(2)
         word_list_table2.setRowCount(10)
+        word_list_table1.setStyleSheet("background-color: rgb(255, 255, 255, 80)")
+        word_list_table2.setStyleSheet("background-color: rgb(233, 255, 255, 80)")
 
         word_list_layout.addWidget(word_list_table1)
         word_list_layout.addWidget(word_list_table2)
