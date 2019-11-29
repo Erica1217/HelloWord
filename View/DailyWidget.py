@@ -17,6 +17,8 @@ class DailyWidget(QWidget):
     def init_ui(self):
         self.setGeometry(200, 200, 700, 500)
         self.setWindowTitle("Daily")
+        self.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 "
+                           "rgb(200, 191, 231), stop:1 rgb(252, 171, 205));")
 
         main_layout = QVBoxLayout()
         daily_label = QLabel("DAILY")
