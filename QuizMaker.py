@@ -18,6 +18,10 @@ class QuizMaker:
             self.__example.append(problem[1].kor)
             self.__example.append(problem[2].kor)
             random.shuffle(self.new_problem)
+
+    def get_answer(self):
+        return self.__answer
+
     def get_problem(self):
         return self.__problem
 
