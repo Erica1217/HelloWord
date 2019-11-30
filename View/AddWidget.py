@@ -14,7 +14,12 @@ class AddWidget(QWidget):
         super().__init__()
         self.dbManager= DBManager()
         self.kor_edit = QTextEdit()
+        self.kor_edit.setMaximumHeight(60)
+        self.kor_edit.setStyleSheet(("background-color: rgb(255, 255, 255, 100)"))
+
         self.eng_edit = QTextEdit()
+        self.eng_edit.setMaximumHeight(60)
+        self.eng_edit.setStyleSheet(("background-color: rgb(255, 255, 255, 100)"))
         self.init_ui()
 
 
@@ -28,7 +33,11 @@ class AddWidget(QWidget):
         vlayout = QVBoxLayout()
 
         title_label = QLabel("ADD")
+        title_label.setStyleSheet("color:white;")
+        title_label.setAlignment(Qt.AlignCenter)
+        title_label.setFont(QtGui.QFont("Arial Rounded MT Bold", 20))
         title_label.setStyleSheet("background-color: rgb(255,255,255,0); color:white;")
+
 
         top_layout = QHBoxLayout()
         top_layout.addStretch(1)
@@ -36,6 +45,7 @@ class AddWidget(QWidget):
         top_layout.addStretch(1)
 
         eng_label = QLabel("영어")
+        eng_label.setStyleSheet("background-color: rgb(255, 255, 255, 0)")
         eng_layout = QHBoxLayout()
         eng_layout.addStretch(1)
         eng_layout.addWidget(eng_label)
@@ -43,6 +53,7 @@ class AddWidget(QWidget):
         eng_layout.addStretch(1)
 
         kor_label = QLabel("한글")
+        kor_label.setStyleSheet("background-color: rgb(255, 255, 255, 0)")
         kor_layout = QHBoxLayout()
         kor_layout.addStretch(1)
         kor_layout.addWidget(kor_label)
@@ -50,7 +61,9 @@ class AddWidget(QWidget):
         kor_layout.addStretch(1)
 
         import_btn = QPushButton("import CSV")
+        import_btn.setStyleSheet("background-color: rgb(255, 255, 255, 100)")
         ok_btn = QPushButton("OK")
+        ok_btn.setStyleSheet("background-color: rgb(255, 255, 255, 100)")
 
         btn_layout = QHBoxLayout()
         btn_layout.addWidget(import_btn)
