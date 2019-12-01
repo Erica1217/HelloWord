@@ -11,11 +11,11 @@ from View.AddWidget import AddWidget
 
 
 class WordWidget(QWidget):
-    def __init__(self):
-        super().__init__()
-        self.dbManager= DBManager()
+    def __init__(self, parent=None):
+        super(WordWidget, self).__init__(parent)
+        self.thisWindow = self
+        self.dbManager = DBManager.instance()
         self.init_ui()
-
 
     def init_ui(self):
         self.resize(700, 540)
@@ -79,7 +79,9 @@ class WordWidget(QWidget):
 
     def add_btn_clicked(self):
         # 새로운 add ui 추가
-        AddWidget().show()
+        self.thisWindow = AddWidget()
+        self.thisWindow.show()
+        print(self.dbManager.get_all_words())
 
 if __name__ == "__main__":
 

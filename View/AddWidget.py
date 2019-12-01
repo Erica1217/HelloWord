@@ -12,7 +12,7 @@ from DBManager import DBManager
 class AddWidget(QWidget):
     def __init__(self):
         super().__init__()
-        self.dbManager= DBManager()
+        self.dbManager= DBManager.instance()
         self.kor_edit = QTextEdit()
         self.kor_edit.setMaximumHeight(60)
         self.kor_edit.setStyleSheet(("background-color: rgb(255, 255, 255, 100)"))
@@ -37,7 +37,6 @@ class AddWidget(QWidget):
         title_label.setAlignment(Qt.AlignCenter)
         title_label.setFont(QtGui.QFont("Arial Rounded MT Bold", 20))
         title_label.setStyleSheet("background-color: rgb(255,255,255,0); color:white;")
-
 
         top_layout = QHBoxLayout()
         top_layout.addStretch(1)
@@ -71,9 +70,10 @@ class AddWidget(QWidget):
         btn_layout.addWidget(ok_btn)
 
         bottom_layout = QVBoxLayout()
+        bottom_layout.addStretch(2)
         bottom_layout.addLayout(eng_layout)
         bottom_layout.addLayout(kor_layout)
-        bottom_layout.addStretch(1)
+        bottom_layout.addStretch(4)
         bottom_layout.addLayout(btn_layout)
 
         vlayout.addLayout(top_layout)
@@ -100,8 +100,6 @@ class AddWidget(QWidget):
             QMessageBox.information(
                 self, '알림', "csv파일이 아닙니다.",
                 QMessageBox.Yes)
-
-
 
 if __name__ == "__main__":
 

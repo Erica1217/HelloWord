@@ -13,7 +13,7 @@ class QuizWidget(QWidget):
 
     def __init__(self):
         super(QuizWidget, self).__init__()
-        self.db_manager = DBManager()
+        self.db_manager = DBManager.instance()
         self.quiz_maker = QuizMaker(self.db_manager.get_unknown_words())
         self.answer_btn1 = QPushButton(self.quiz_maker.get_example()[0])
         self.answer_btn2 = QPushButton(self.quiz_maker.get_example()[1])

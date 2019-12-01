@@ -7,6 +7,17 @@ import random
 
 # todo 싱글톤 구현
 class DBManager:
+    _instance = None
+
+    @classmethod
+    def _get_instance(cls):
+        return cls._instance
+
+    @classmethod
+    def instance(cls, *args, **kargs):
+        cls._instance = cls()
+        cls.instance = cls._get_instance
+        return cls._instance
 
     def __init__(self):
         self.GRADE_CUT = 5

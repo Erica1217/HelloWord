@@ -11,7 +11,7 @@ from DBManager import DBManager
 class DailyWidget(QWidget):
     def __init__(self):
         super().__init__()
-        self.db_manager = DBManager()
+        self.db_manager = DBManager.instance()
         self.init_ui()
 
     def init_ui(self):
