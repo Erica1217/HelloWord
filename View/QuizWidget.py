@@ -15,19 +15,14 @@ class QuizWidget(QWidget):
         super(QuizWidget, self).__init__()
         self.db_manager = DBManager.instance()
         self.quiz_maker = QuizMaker(self.db_manager.get_unknown_words())
-        self.answer_btn1 = QPushButton('사과')
-        self.answer_btn1.setStyleSheet("background-color: rgb(233, 211, 245, 100)")
-        self.answer_btn2 = QPushButton('멜론')
-        self.answer_btn2.setStyleSheet("background-color: rgb(233, 211, 245, 100)")
-        self.answer_btn3 = QPushButton('수박')
-        self.answer_btn3.setStyleSheet("background-color: rgb(233, 211, 245, 100)")
-        self.problem_label = QLabel('Apple')
-        self.problem_label.setStyleSheet("color:black;")
-        self.problem_label.setAlignment(Qt.AlignCenter)
-        self.problem_label.setFont(QtGui.QFont("Arial Rounded MT Bold", 33))
-        self.text_label = QLabel("정답은 사과")
-        self.text_label.setStyleSheet("background-color: rgb(233, 211, 245, 0)")
+        self.answer_btn1 = QPushButton(self.quiz_maker.get_example()[0])
+        self.answer_btn2 = QPushButton(self.quiz_maker.get_example()[1])
+        self.answer_btn3 = QPushButton(self.quiz_maker.get_example()[2])
+        self.problem_label = QLabel(self.quiz_maker.get_problem())
+        self.next_btn = QPushButton()
+        self.has_answer = False
 
+        self.text_label = QLabel()
         self.init__ui()
 
     def init__ui(self):
@@ -44,8 +39,15 @@ class QuizWidget(QWidget):
 
         self.problem_label.setAlignment(Qt.AlignCenter)
         self.problem_label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.problem_label.setStyleSheet("color:black;")
+        self.problem_label.setAlignment(Qt.AlignCenter)
+        self.problem_label.setFont(QtGui.QFont("Arial Rounded MT Bold", 33))
 
         answer_layout = QHBoxLayout()
+
+        self.answer_btn1.setStyleSheet("background-color: rgb(233, 211, 245, 100)")
+        self.answer_btn2.setStyleSheet("background-color: rgb(233, 211, 245, 100)")
+        self.answer_btn3.setStyleSheet("background-color: rgb(233, 211, 245, 100)")
 
         self.answer_btn1.clicked.connect(self.answer_btns_clicked)
         self.answer_btn2.clicked.connect(self.answer_btns_clicked)
@@ -55,15 +57,16 @@ class QuizWidget(QWidget):
         answer_layout.addWidget(self.answer_btn2)
         answer_layout.addWidget(self.answer_btn3)
 
-        next_btn = QPushButton()
-        next_btn.setIcon(QIcon("../resource/icon/ic_right_arrow.png"))
-        next_btn.setStyleSheet("background-color: rgb(233, 211, 245, 0)")
-        next_btn.clicked.connect(self.next_btn_clicked)
+        self.next_btn.setIcon(QIcon("../resource/icon/ic_right_arrow.png"))
+        self.next_btn.setStyleSheet("background-color: rgb(233, 211, 245, 0)")
+        self.next_btn.clicked.connect(self.next_btn_clicked)
+
+        self.text_label.setStyleSheet("background-color: rgb(233, 211, 245, 0)")
 
         bottom_layout = QHBoxLayout()
         bottom_layout.addWidget(self.text_label)
         bottom_layout.addStretch(1)
-        bottom_layout.addWidget(next_btn)
+        bottom_layout.addWidget(self.next_btn)
 
         main_layout.addWidget(quiz_label)
         main_layout.addStretch(1)
@@ -78,20 +81,28 @@ class QuizWidget(QWidget):
 
     def answer_btns_clicked(self):
         answer = self.sender().text()
-        if self.quiz_maker.get_answer() == answer:
-            self.text_label.setText("정답입니다!")
-            self.text_label.setStyleSheet("background-color: rgb(233, 211, 245, 0)")
-        else:
-            self.text_label.setText("정답은 "+self.quiz_maker.get_answer())
-            self.text_label.setStyleSheet("background-color: rgb(233, 211, 245, 0)")
+        if self.has_answer is False:
+            if self.quiz_maker.get_answer() == answer:
+                self.text_label.setText("정답입니다!")
+                self.text_label.setStyleSheet('color: rgb(0,255,0)')
+            else:
+                self.text_label.setText("정답은 "+self.quiz_maker.get_answer())
+                self.text_label.setStyleSheet('color: rgb(255,0,0)')
+            self.next_btn.show()
+            self.text_label.show()
+        self.has_answer = True
 
     def next_btn_clicked(self):
-        self.quiz_maker.new_problem()
-        example = self.quiz_maker.get_example()
-        self.problem_label.setText(self.quiz_maker.get_problem())
-        self.answer_btn1.setText(example[0])
-        self.answer_btn2.setText(example[1])
-        self.answer_btn3.setText(example[2])
+        if self.has_answer is True:
+            self.quiz_maker.new_problem()
+            example = self.quiz_maker.get_example()
+            self.problem_label.setText(self.quiz_maker.get_problem())
+            self.answer_btn1.setText(example[0])
+            self.answer_btn2.setText(example[1])
+            self.answer_btn3.setText(example[2])
+            self.next_btn.hide()
+            self.text_label.hide()
+            self.has_answer = False
 
 
 if __name__ == '__main__':

@@ -5,7 +5,6 @@ from datetime import datetime
 import random
 
 
-# todo 싱글톤 구현
 class DBManager:
     _instance = None
 
@@ -72,16 +71,19 @@ class DBManager:
         return self.__daily_words
 
     def load(self):
-        with open('data.pickle', 'rb') as f:
-            data = pickle.load(f)
-            self.__all_words = data[0]
-            self.__known_words = data[1]
-            self.__unknown_words = data[2]
-            self.__daily_words = data[3]
-            pre_time = data[4]
-            now = datetime.now()
-            if pre_time.year != now.year or pre_time.month != now.month or pre_time.day != now.day:
-                self.__daily_words = random.sample(self.__unknown_words, 20)
+        try:
+            with open('data.pickle', 'rb') as f:
+                data = pickle.load(f)
+                self.__all_words = data[0]
+                self.__known_words = data[1]
+                self.__unknown_words = data[2]
+                self.__daily_words = data[3]
+                pre_time = data[4]
+                now = datetime.now()
+                if pre_time.year != now.year or pre_time.month != now.month or pre_time.day != now.day:
+                    self.__daily_words = random.sample(self.__unknown_words, 20)
+        except:
+            return
 
     def save(self):
         data = [self.__all_words,

@@ -14,6 +14,8 @@ class MainWidget(QWidget):
     def __init__(self, parent=None):
         # super().__init__()
         super(MainWidget, self).__init__(parent)
+        self.dbmanager= DBManager.instance()
+        self.dbmanager.load()
         self.thisWindow = self
         self.init_ui()
 
@@ -97,6 +99,11 @@ class MainWidget(QWidget):
         self.thisWindow = QuizWidget()
         self.thisWindow.show()
     # def repeat_clicked(self):
+
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key_Escape:
+            self.dbmanager.save()
+            self.close()
 
 
 
