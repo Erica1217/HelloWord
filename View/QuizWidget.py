@@ -15,11 +15,18 @@ class QuizWidget(QWidget):
         super(QuizWidget, self).__init__()
         self.db_manager = DBManager.instance()
         self.quiz_maker = QuizMaker(self.db_manager.get_unknown_words())
-        self.answer_btn1 = QPushButton(self.quiz_maker.get_example()[0])
-        self.answer_btn2 = QPushButton(self.quiz_maker.get_example()[1])
-        self.answer_btn3 = QPushButton(self.quiz_maker.get_example()[2])
-        self.problem_label = QLabel('sdfs')
+        self.answer_btn1 = QPushButton('사과')
+        self.answer_btn1.setStyleSheet("background-color: rgb(233, 211, 245, 100)")
+        self.answer_btn2 = QPushButton('멜론')
+        self.answer_btn2.setStyleSheet("background-color: rgb(233, 211, 245, 100)")
+        self.answer_btn3 = QPushButton('수박')
+        self.answer_btn3.setStyleSheet("background-color: rgb(233, 211, 245, 100)")
+        self.problem_label = QLabel('Apple')
+        self.problem_label.setStyleSheet("color:black;")
+        self.problem_label.setAlignment(Qt.AlignCenter)
+        self.problem_label.setFont(QtGui.QFont("Arial Rounded MT Bold", 33))
         self.text_label = QLabel("정답은 사과")
+        self.text_label.setStyleSheet("background-color: rgb(233, 211, 245, 0)")
 
         self.init__ui()
 
@@ -31,7 +38,9 @@ class QuizWidget(QWidget):
         main_layout = QVBoxLayout()
 
         quiz_label = QLabel('QUIZ')
+        quiz_label.setStyleSheet("color:white;")
         quiz_label.setAlignment(Qt.AlignCenter)
+        quiz_label.setFont(QtGui.QFont("Arial Rounded MT Bold", 20))
 
         self.problem_label.setAlignment(Qt.AlignCenter)
         self.problem_label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
@@ -48,6 +57,7 @@ class QuizWidget(QWidget):
 
         next_btn = QPushButton()
         next_btn.setIcon(QIcon("../resource/icon/ic_right_arrow.png"))
+        next_btn.setStyleSheet("background-color: rgb(233, 211, 245, 0)")
         next_btn.clicked.connect(self.next_btn_clicked)
 
         bottom_layout = QHBoxLayout()
@@ -56,8 +66,11 @@ class QuizWidget(QWidget):
         bottom_layout.addWidget(next_btn)
 
         main_layout.addWidget(quiz_label)
+        main_layout.addStretch(1)
         main_layout.addWidget(self.problem_label)
+        main_layout.addStretch(3)
         main_layout.addLayout(answer_layout)
+        main_layout.addStretch(1)
         main_layout.addLayout(bottom_layout)
 
         self.setLayout(main_layout)
@@ -67,10 +80,10 @@ class QuizWidget(QWidget):
         answer = self.sender().text()
         if self.quiz_maker.get_answer() == answer:
             self.text_label.setText("정답입니다!")
-            self.text_label.setStyleSheet('color: rgb(0,255,0)')
+            self.text_label.setStyleSheet("background-color: rgb(233, 211, 245, 0)")
         else:
             self.text_label.setText("정답은 "+self.quiz_maker.get_answer())
-            self.text_label.setStyleSheet('color: rgb(255,0,0)')
+            self.text_label.setStyleSheet("background-color: rgb(233, 211, 245, 0)")
 
     def next_btn_clicked(self):
         self.quiz_maker.new_problem()
