@@ -1,4 +1,5 @@
 class Word:
+
     def __init__(self):
         self.__init__("","",0)
         return
@@ -7,6 +8,6 @@ class Word:
         self.__init__(eng,kor,0)
 
     def __init__(self, eng, kor, count):
-        self.end = eng
+        self.eng = eng
         self.kor = kor
         self.count = count
