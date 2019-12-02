@@ -63,18 +63,18 @@ class WordWidget(QWidget):
 
         self.setLayout(vlayout)
 
-    def set_table_widget(self,table_widget, data):
+    def set_table_widget(self, table_widget, data):
         i = 0
 
-        table_widget.verticalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+        table_widget.verticalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
         table_widget.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
 
         table_widget.setRowCount(len(data))
         table_widget.setColumnCount(2)
 
         for eng, word in data.items():
-            table_widget.setItem(i, 0, QTableWidgetItem(word.eng))
-            table_widget.setItem(i, 1, QTableWidgetItem(word.kor))
+            table_widget.setItem(i, 0, QTableWidgetItem(str(word.eng)))
+            table_widget.setItem(i, 1, QTableWidgetItem(str(word.kor)))
             i += 1
 
     def add_btn_clicked(self):

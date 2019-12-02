@@ -22,10 +22,10 @@ class DBManager:
     def __init__(self):
         self.GRADE_CUT = 5
         # self.load()
-        self.__all_words = {}
-        self.__known_words = {}
-        self.__unknown_word = {}
-        self.__daily_words = {}
+        self.__all_words = dict()
+        self.__known_words = dict()
+        self.__unknown_words = dict()
+        self.__daily_words = dict()
 
     '''
     이미 있는 단어는 false, 없는 단어는 true 리턴
@@ -34,7 +34,7 @@ class DBManager:
         new_word = Word(eng, kor, 0)
         if eng not in self.__all_words:
             self.__all_words[eng] = new_word
-            self.__known_words[eng] = new_word
+            self.__unknown_words[eng] = new_word
             return True
         return False
 
@@ -56,7 +56,7 @@ class DBManager:
     # 사용자가 문제를 맞췄을 때
     def solve_quiz(self, eng):
         self.__all_words[eng].count += 1
-        if self.__all_words[eng].count == self.GRADE_CUT and eng in self.__unknown_word:
+        if self.__all_words[eng].count == self.GRADE_CUT and eng in self.__unknown_words:
             self.__known_words[eng] = self.__all_words[eng]
 
     def get_all_words(self):
@@ -66,7 +66,7 @@ class DBManager:
         return self.__known_words
 
     def get_unknown_words(self):
-        return self.__unknown_word
+        return self.__unknown_words
 
     def get_daily_words(self):
         return self.__daily_words
@@ -76,17 +76,17 @@ class DBManager:
             data = pickle.load(f)
             self.__all_words = data[0]
             self.__known_words = data[1]
-            self.__unknown_word = data[2]
+            self.__unknown_words = data[2]
             self.__daily_words = data[3]
             pre_time = data[4]
             now = datetime.now()
             if pre_time.year != now.year or pre_time.month != now.month or pre_time.day != now.day:
-                self.__daily_words = random.sample(self.__unknown_word, 20)
+                self.__daily_words = random.sample(self.__unknown_words, 20)
 
     def save(self):
         data = [self.__all_words,
                 self.__known_words,
-                self.__unknown_word,
+                self.__unknown_words,
                 self.__daily_words,
                 datetime.now()]
         with open('data.pickle', 'wb') as f:
