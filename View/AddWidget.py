@@ -13,11 +13,11 @@ class AddWidget(QWidget):
     def __init__(self):
         super().__init__()
         self.dbManager= DBManager.instance()
-        self.kor_edit = QTextEdit()
+        self.kor_edit = QLineEdit()
         self.kor_edit.setMaximumHeight(60)
         self.kor_edit.setStyleSheet(("background-color: rgb(255, 255, 255, 100)"))
 
-        self.eng_edit = QTextEdit()
+        self.eng_edit = QLineEdit()
         self.eng_edit.setMaximumHeight(60)
         self.eng_edit.setStyleSheet(("background-color: rgb(255, 255, 255, 100)"))
         self.init_ui()
@@ -85,8 +85,8 @@ class AddWidget(QWidget):
         self.setLayout(vlayout)
 
     def ok_btn(self):
-        eng = self.eng_edit
-        kor = self.kor_edit
+        eng = self.eng_edit.text()
+        kor = self.kor_edit.text()
         self.dbManager.add_word(eng, kor)
         self.eng_edit.setText('')
         self.kor_edit.setText('')
