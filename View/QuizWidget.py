@@ -107,7 +107,19 @@ class QuizWidget(QWidget):
 
 if __name__ == '__main__':
     import sys
+    # from gtts import gTTS
+    # import pygame
+    # from io import BytesIO
+    # mp3_fp = BytesIO()
+    # tts = gTTS('hello', 'en')
+    # tts.write_to_fp(mp3_fp.)
+    #
+    # pygame.mixer.init()
+    # pygame.mixer.music.load()
+    # pygame.mixer.music.play()
+
     app = QApplication(sys.argv)
     ex = QuizWidget()
     sys.exit(app.exec_())
+
 
