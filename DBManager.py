@@ -61,7 +61,7 @@ class DBManager:
     def get_all_words(self):
         return self.__all_words
 
-    def get_know_words(self):
+    def get_known_words(self):
         return self.__known_words
 
     def get_unknown_words(self):
