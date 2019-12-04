@@ -15,6 +15,10 @@ class QuizWidget(QWidget):
         super(QuizWidget, self).__init__()
         self.db_manager = DBManager.instance()
         self.quiz_maker = QuizMaker(self.db_manager.get_unknown_words())
+        if (len(self.quiz_maker.get_example())):
+            # todo 사용자에게 데이터가 없습니다 라고 알림
+            return
+
         self.answer_btn1 = QPushButton(self.quiz_maker.get_example()[0])
         self.answer_btn2 = QPushButton(self.quiz_maker.get_example()[1])
         self.answer_btn3 = QPushButton(self.quiz_maker.get_example()[2])
@@ -60,6 +64,7 @@ class QuizWidget(QWidget):
         self.next_btn.setIcon(QIcon("../resource/icon/ic_right_arrow.png"))
         self.next_btn.setStyleSheet("background-color: rgb(233, 211, 245, 0)")
         self.next_btn.clicked.connect(self.next_btn_clicked)
+        self.next_btn.hide()
 
         self.text_label.setStyleSheet("background-color: rgb(233, 211, 245, 0)")
 
