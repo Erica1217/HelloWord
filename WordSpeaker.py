@@ -6,15 +6,14 @@ class WordSpeaker:
 
     @staticmethod
     def speak(word):
-        # os.path.isfile(fname)
+        path = "../resource/mp3/" + word + ".mp3"
 
-        path = "../resource/mp3/"
-
-        tts = gTTS(word, 'en')
-        tts.save(path + tts.text + ".mp3")
+        if not os.path.isfile(path):
+            tts = gTTS(word, 'en')
+            tts.save(path)
 
         pygame.mixer.init()
-        pygame.mixer.music.load(path + tts.text + ".mp3")
+        pygame.mixer.music.load(path)
         pygame.mixer.music.play()
         clock = pygame.time.Clock()
 
