@@ -9,12 +9,12 @@ from DBManager import DBManager
 from QuizMaker import QuizMaker
 
 
-class QuizWidget(QWidget):
+class RepeatWidget(QWidget):
 
     def __init__(self):
-        super(QuizWidget, self).__init__()
+        super(RepeatWidget, self).__init__()
         self.db_manager = DBManager.instance()
-        self.quiz_maker = QuizMaker(self.db_manager.get_unknown_words())
+        self.quiz_maker = QuizMaker(self.db_manager.get_known_words())
         self.answer_btn1 = QPushButton(self.quiz_maker.get_example()[0])
         self.answer_btn2 = QPushButton(self.quiz_maker.get_example()[1])
         self.answer_btn3 = QPushButton(self.quiz_maker.get_example()[2])
@@ -27,12 +27,12 @@ class QuizWidget(QWidget):
 
     def init__ui(self):
         self.resize(700, 540)
-        self.setWindowTitle("Quiz")
+        self.setWindowTitle("Repeat")
         self.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 "
                            "rgb(200, 191, 231), stop:1 rgb(252, 171, 205));")
         main_layout = QVBoxLayout()
 
-        quiz_label = QLabel('QUIZ')
+        quiz_label = QLabel('REPEAT')
         quiz_label.setStyleSheet("color:white;")
         quiz_label.setAlignment(Qt.AlignCenter)
         quiz_label.setFont(QtGui.QFont("Arial Rounded MT Bold", 20))
@@ -84,12 +84,12 @@ class QuizWidget(QWidget):
         if self.has_answer is False:
             if self.quiz_maker.get_answer() == answer:
                 self.text_label.setText("정답입니다!")
-                self.text_label.setStyleSheet("background-color: rgb(233, 211, 245, 0); color: rgb(34,177,76)")
-                self.text_label.setFont(QtGui.QFont("함초롬돋움", 15))
+                self.text_label.setStyleSheet("background-color: rgb(233, 211, 245, 0); color: rgb(0,255,0)")
+                self.text_label.setFont(QtGui.QFont("함초롬돋움", 14))
             else:
                 self.text_label.setText("정답은 "+self.quiz_maker.get_answer())
                 self.text_label.setStyleSheet("background-color: rgb(233, 211, 245, 0); color: rgb(255,0,0)")
-                self.text_label.setFont(QtGui.QFont("함초롬돋움", 15))
+                self.text_label.setFont(QtGui.QFont("함초롬돋움", 14))
             self.next_btn.show()
             self.text_label.show()
         self.has_answer = True
@@ -109,19 +109,7 @@ class QuizWidget(QWidget):
 
 if __name__ == '__main__':
     import sys
-    # from gtts import gTTS
-    # import pygame
-    # from io import BytesIO
-    # mp3_fp = BytesIO()
-    # tts = gTTS('hello', 'en')
-    # tts.write_to_fp(mp3_fp.)
-    #
-    # pygame.mixer.init()
-    # pygame.mixer.music.load()
-    # pygame.mixer.music.play()
-
     app = QApplication(sys.argv)
-    ex = QuizWidget()
+    ex = RepeatWidget()
     sys.exit(app.exec_())
-
 

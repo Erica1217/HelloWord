@@ -8,6 +8,7 @@ from DBManager import DBManager
 from View.DailyWidget import DailyWidget
 from View.QuizWidget import QuizWidget
 from View.WordWidget import WordWidget
+from View.RepeatWidget import RepeatWidget
 
 
 class MainWidget(QWidget):
@@ -83,7 +84,7 @@ class MainWidget(QWidget):
         daily_btn.clicked.connect(self.daily_clicked)
         words_btn.clicked.connect(self.words_clicked)
         quiz_btn.clicked.connect(self.quiz_clicked)
-        # repeat_btn.clicked.connect(self.repeat_clicked)
+        repeat_btn.clicked.connect(self.repeat_clicked)
 
         self.setLayout(vbox)
 
@@ -98,8 +99,11 @@ class MainWidget(QWidget):
     def quiz_clicked(self):
         self.thisWindow = QuizWidget()
         self.thisWindow.show()
-    # def repeat_clicked(self):
 
+    def repeat_clicked(self):
+        self.thisWindow = RepeatWidget()
+        self.thisWindow.show()
+    
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Escape:
             self.dbmanager.save()

@@ -52,7 +52,7 @@ class WordWidget(QWidget):
         unknown_tab = QTableWidget()
 
         self.set_table_widget(all_tab, self.dbManager.get_all_words())
-        self.set_table_widget(known_tab, self.dbManager.get_know_words())
+        self.set_table_widget(known_tab, self.dbManager.get_known_words())
         self.set_table_widget(unknown_tab, self.dbManager.get_unknown_words())
 
         tab_widget.addTab(all_tab, "All")
