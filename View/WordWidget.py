@@ -78,6 +78,7 @@ class WordWidget(QWidget):
             table_widget.setItem(i, 1, QTableWidgetItem(str(word.kor)))
             i += 1
         table_widget.cellClicked.connect(self.word_clicked)
+        table_widget.setHorizontalHeaderLabels(["영어", "뜻"])
 
     def add_btn_clicked(self):
         # 새로운 add ui 추가

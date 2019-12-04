@@ -53,6 +53,9 @@ class DailyWidget(QWidget):
         self.word_list_table1.verticalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
         self.word_list_table2.verticalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
 
+        self.word_list_table1.setHorizontalHeaderLabels(["영어", "뜻"])
+        self.word_list_table2.setHorizontalHeaderLabels(["영어", "뜻"])
+
         self.word_list_table1.setWordWrap(False)
         self.word_list_table2.setWordWrap(False)
 
