@@ -95,7 +95,7 @@ class AddWidget(QWidget):
         csv_path = QFileDialog.getOpenFileName(self)
         print(csv_path[0])
         if len(csv_path[0])>=4 and csv_path[0][-4:]==".csv":
-            self.dbManager.add_words_from_csv(csv_path)
+            self.dbManager.add_words_from_csv(csv_path[0])
         else:
             QMessageBox.information(
                 self, '알림', "csv파일이 아닙니다.",
