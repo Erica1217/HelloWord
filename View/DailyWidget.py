@@ -28,21 +28,21 @@ class DailyWidget(QWidget):
 
         word_list_layout = QHBoxLayout()
 
-        word_list_table1 = QTableWidget()
-        word_list_table2 = QTableWidget()
+        self.word_list_table1 = QTableWidget()
+        self.word_list_table2 = QTableWidget()
 
-        word_list_table1.setColumnCount(2)
-        word_list_table1.setRowCount(10)
-        word_list_table2.setColumnCount(2)
-        word_list_table2.setRowCount(10)
-        word_list_table1.setStyleSheet("background-color: rgb(255, 255, 255, 80)")
-        word_list_table2.setStyleSheet("background-color: rgb(233, 255, 255, 80)")
+        self.word_list_table1.setColumnCount(2)
+        self.word_list_table1.setRowCount(10)
+        self.word_list_table2.setColumnCount(2)
+        self.word_list_table2.setRowCount(10)
+        self.word_list_table1.setStyleSheet("background-color: rgb(255, 255, 255, 80)")
+        self.word_list_table2.setStyleSheet("background-color: rgb(233, 255, 255, 80)")
 
-        word_list_layout.addWidget(word_list_table1)
-        word_list_layout.addWidget(word_list_table2)
+        word_list_layout.addWidget(self.word_list_table1)
+        word_list_layout.addWidget(self.word_list_table2)
 
-        header1 = word_list_table1.horizontalHeader()
-        header2 = word_list_table2.horizontalHeader()
+        header1 = self.word_list_table1.horizontalHeader()
+        header2 = self.word_list_table2.horizontalHeader()
 
         header1.setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
         header2.setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
@@ -50,20 +50,22 @@ class DailyWidget(QWidget):
         main_layout.addWidget(daily_label)
         main_layout.addLayout(word_list_layout)
 
-        word_list_table1.verticalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
-        word_list_table2.verticalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
+        self.word_list_table1.verticalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
+        self.word_list_table2.verticalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
 
-        word_list_table1.setWordWrap(False)
-        word_list_table2.setWordWrap(False)
+        self.word_list_table1.setWordWrap(False)
+        self.word_list_table2.setWordWrap(False)
 
         # 테이블에 데이터 추가
-        daily_words = list(self.db_manager.get_daily_words())
-        for i in range(0,10):
-            # word_list_table1.setItem(i, 0, QTableWidgetItem(daily_words[i]))
-            # word_list_table2.setItem(i, 0, QTableWidgetItem(daily_words[i+10]))
+        daily_words = list(self.db_manager.get_daily_words().values())
+        for i in range(0, 10):
+            self.word_list_table1.setItem(i, 0, QTableWidgetItem(daily_words[i].eng))
+            self.word_list_table1.setItem(i, 1, QTableWidgetItem(daily_words[i].kor))
+            self.word_list_table2.setItem(i, 0, QTableWidgetItem(daily_words[i+10].eng))
+            self.word_list_table2.setItem(i, 1, QTableWidgetItem(daily_words[i+10].kor))
 
-            word_list_table1.verticalHeader().setSectionResizeMode(i, QtWidgets.QHeaderView.Stretch)
-            word_list_table2.verticalHeader().setSectionResizeMode(i, QtWidgets.QHeaderView.Stretch)
+            self.word_list_table1.verticalHeader().setSectionResizeMode(i, QtWidgets.QHeaderView.Stretch)
+            self.word_list_table2.verticalHeader().setSectionResizeMode(i, QtWidgets.QHeaderView.Stretch)
 
 
         self.setLayout(main_layout)

@@ -8,6 +8,7 @@ from PyQt5.QtCore import *
 
 from DBManager import DBManager
 from View.AddWidget import AddWidget
+from WordSpeaker import WordSpeaker
 
 
 class WordWidget(QWidget):
@@ -76,6 +77,7 @@ class WordWidget(QWidget):
             table_widget.setItem(i, 0, QTableWidgetItem(str(word.eng)))
             table_widget.setItem(i, 1, QTableWidgetItem(str(word.kor)))
             i += 1
+        table_widget.cellClicked.connect(self.word_clicked)
 
     def add_btn_clicked(self):
         # 새로운 add ui 추가
@@ -83,8 +85,13 @@ class WordWidget(QWidget):
         self.thisWindow.show()
         print(self.dbManager.get_all_words())
 
-if __name__ == "__main__":
+    def word_clicked(self, row, col):
+        sender = self.sender()
+        word = sender.item(row, col).text()
+        WordSpeaker.speak(word)
 
+
+if __name__ == "__main__":
     app = QApplication(sys.argv)
     ex = WordWidget()
     ex.show()
