@@ -15,7 +15,7 @@ class QuizWidget(QWidget):
         super(QuizWidget, self).__init__()
         self.db_manager = DBManager.instance()
         self.quiz_maker = QuizMaker(self.db_manager.get_unknown_words())
-        if (len(self.quiz_maker.get_example())):
+        if (len(self.quiz_maker.get_example())<3):
             # todo 사용자에게 데이터가 없습니다 라고 알림
             return
 
@@ -92,7 +92,7 @@ class QuizWidget(QWidget):
                 self.text_label.setStyleSheet("background-color: rgb(233, 211, 245, 0); color: rgb(34,177,76)")
                 self.text_label.setFont(QtGui.QFont("함초롬돋움", 15))
             else:
-                self.text_label.setText("정답은 "+self.quiz_maker.get_answer())
+                self.text_label.setText("정답은 "+self.quiz_maker.get_answer()+" 입니다")
                 self.text_label.setStyleSheet("background-color: rgb(233, 211, 245, 0); color: rgb(255,0,0)")
                 self.text_label.setFont(QtGui.QFont("함초롬돋움", 15))
             self.next_btn.show()

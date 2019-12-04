@@ -15,7 +15,7 @@ class RepeatWidget(QWidget):
         super(RepeatWidget, self).__init__()
         self.db_manager = DBManager.instance()
         self.quiz_maker = QuizMaker(self.db_manager.get_known_words())
-        if(len(self.quiz_maker.get_example())):
+        if(len(self.quiz_maker.get_example())<3):
             # todo 사용자에게 데이터가 없습니다 라고 알림
             return
         self.answer_btn1 = QPushButton(self.quiz_maker.get_example()[0])
