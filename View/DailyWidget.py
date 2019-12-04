@@ -60,7 +60,9 @@ class DailyWidget(QWidget):
         self.word_list_table2.setWordWrap(False)
 
         # 테이블에 데이터 추가
-        daily_words = list(self.db_manager.get_daily_words().values())
+        daily_words = self.db_manager.get_daily_words()
+        print(daily_words)
+
         for i in range(0, 10):
             self.word_list_table1.setItem(i, 0, QTableWidgetItem(daily_words[i].eng))
             self.word_list_table1.setItem(i, 1, QTableWidgetItem(daily_words[i].kor))

@@ -24,7 +24,7 @@ class DBManager:
         self.__all_words = dict()
         self.__known_words = dict()
         self.__unknown_words = dict()
-        self.__daily_words = dict()
+        self.__daily_words = []
 
     '''
     이미 있는 단어는 false, 없는 단어는 true 리턴
@@ -81,9 +81,13 @@ class DBManager:
                 pre_time = data[4]
                 now = datetime.now()
                 if pre_time.year != now.year or pre_time.month != now.month or pre_time.day != now.day:
-                    self.__daily_words = random.sample(self.__unknown_words, 20)
-        except:
-            return
+                    if len(self.__unknown_words.values()) >= 20:
+                        self.__daily_words = random.sample(list(self.__unknown_words.values()), 20)
+                    else:
+                        self.__daily_words = self.__unknown_words.values()
+
+        except Exception as ex:
+            print('error', ex)
 
     def save(self):
         data = [self.__all_words,
