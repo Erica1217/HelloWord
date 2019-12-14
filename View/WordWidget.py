@@ -14,6 +14,7 @@ from WordSpeaker import WordSpeaker
 class WordWidget(QWidget):
     def __init__(self, parent=None):
         super(WordWidget, self).__init__(parent)
+        self.installEventFilter(self)
         self.thisWindow = self
         self.dbManager = DBManager.instance()
         self.init_ui()
@@ -47,17 +48,17 @@ class WordWidget(QWidget):
         top_layout.addStretch(2)
         top_layout.addWidget(add_btn)
 
-        all_tab = QTableWidget()
-        known_tab = QTableWidget()
-        unknown_tab = QTableWidget()
+        self.all_tab = QTableWidget()
+        self.known_tab = QTableWidget()
+        self.unknown_tab = QTableWidget()
 
-        self.set_table_widget(all_tab, self.dbManager.get_all_words())
-        self.set_table_widget(known_tab, self.dbManager.get_known_words())
-        self.set_table_widget(unknown_tab, self.dbManager.get_unknown_words())
+        self.set_table_widget(self.all_tab, self.dbManager.get_all_words())
+        self.set_table_widget(self.known_tab, self.dbManager.get_known_words())
+        self.set_table_widget(self.unknown_tab, self.dbManager.get_unknown_words())
 
-        tab_widget.addTab(all_tab, "All")
-        tab_widget.addTab(unknown_tab, "Unknown")
-        tab_widget.addTab(known_tab, "Known")
+        tab_widget.addTab(self.all_tab, "All")
+        tab_widget.addTab(self.unknown_tab, "Unknown")
+        tab_widget.addTab(self.known_tab, "Known")
 
         vlayout.addLayout(top_layout)
         vlayout.addWidget(tab_widget)
@@ -87,9 +88,19 @@ class WordWidget(QWidget):
         print(self.dbManager.get_all_words())
 
     def word_clicked(self, row, col):
+        if col == 1:
+            return
+
         sender = self.sender()
         word = sender.item(row, col).text()
         WordSpeaker.speak(word)
+
+    def eventFilter(self, object, event):
+        if event.type() == QtCore.QEvent.WindowActivate or event.type() == QtCore.QEvent.FocusIn:
+            self.set_table_widget(self.all_tab, self.dbManager.get_all_words())
+            self.set_table_widget(self.known_tab, self.dbManager.get_known_words())
+            self.set_table_widget(self.unknown_tab, self.dbManager.get_unknown_words())
+        return False
 
 
 if __name__ == "__main__":
