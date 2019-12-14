@@ -19,7 +19,7 @@ class DBManager:
         return cls._instance
 
     def __init__(self):
-        self.GRADE_CUT = 5
+        self.GRADE_CUT = 3
         # self.load()
         self.__all_words = dict()
         self.__known_words = dict()
