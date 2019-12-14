@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 
 from DBManager import DBManager
+from WordSpeaker import WordSpeaker
 
 
 class DailyWidget(QWidget):
@@ -15,7 +16,7 @@ class DailyWidget(QWidget):
         self.init_ui()
 
     def init_ui(self):
-        self.setGeometry(200, 200, 700, 500)
+        self.resize(700, 540)
         self.setWindowTitle("Daily")
         self.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 "
                            "rgb(200, 191, 231), stop:1 rgb(252, 171, 205));")
@@ -72,11 +73,20 @@ class DailyWidget(QWidget):
             self.word_list_table1.verticalHeader().setSectionResizeMode(i, QtWidgets.QHeaderView.Stretch)
             self.word_list_table2.verticalHeader().setSectionResizeMode(i, QtWidgets.QHeaderView.Stretch)
 
+        self.word_list_table1.cellClicked.connect(self.word_clicked)
+        self.word_list_table2.cellClicked.connect(self.word_clicked)
 
         self.setLayout(main_layout)
         self.show()
 
-    # def word_clicked(self):
+    def word_clicked(self, row, col):
+        if col == 1:
+            return
+
+        sender = self.sender()
+        word = sender.item(row, col).text()
+        WordSpeaker.speak(word)
+
 
 if __name__ == '__main__':
     import sys
