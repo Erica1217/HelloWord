@@ -1,4 +1,5 @@
 import random
+import copy
 
 class QuizMaker:
     def __init__(self, words):
@@ -9,8 +10,11 @@ class QuizMaker:
         self.new_problem()
 
     def new_problem(self):
-        if len(self.words) >= 3:
-            problem = random.sample(list(self.words.values()), 3)
+        if len(self.words) >= 4:
+            words = copy.deepcopy(self.words)
+            if self.__problem in words:
+                del words[self.__problem]
+            problem = random.sample(list(words.values()), 3)
             self.__problem = problem[0].eng
             self.__example = []
             self.__answer = problem[0].kor
