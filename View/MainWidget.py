@@ -23,7 +23,7 @@ class MainWidget(QWidget):
 
     def init_ui(self):
         self.resize(700,540)
-        self.setWindowTitle("Hello Word!")
+        self.setWindowTitle("HELLO WORD!")
 
         title_label = QLabel("HELLO WORD !")
         title_label.setStyleSheet("color:white;")
@@ -35,7 +35,7 @@ class MainWidget(QWidget):
                            "rgb(200, 191, 231), stop:1 rgb(252, 171, 205));")
         self.show()
 
-        icon_size = QSize(150, 150)
+        icon_size = QSize(200, 200)
         BTN_STYLE_SHEET = "background-color: rgb(233, 211, 245, 100)"
 
         daily_icon = QtGui.QIcon('../resource/icon/ic_daily.png')
@@ -45,7 +45,7 @@ class MainWidget(QWidget):
         daily_btn.setIconSize(icon_size)
         daily_btn.setIcon(daily_icon)
         daily_label=QLabel("DAILY")
-        daily_label.move(10,100)
+        daily_label.move(10, 100)
 
         words_icon = QtGui.QIcon('../resource/icon/ic_words.png')
         words_btn=QPushButton()
@@ -72,12 +72,15 @@ class MainWidget(QWidget):
         hbox1.addWidget(title_label)
         hbox2=QHBoxLayout()
         hbox2.addWidget(daily_btn)
+        hbox2.addSpacing(10)
         hbox2.addWidget(words_btn)
         hbox3=QHBoxLayout()
         hbox3.addWidget(quiz_btn)
+        hbox3.addSpacing(10)
         hbox3.addWidget(repeat_btn)
         vbox=QVBoxLayout()
         vbox.addLayout(hbox1)
+        vbox.addSpacing(9)
         vbox.addLayout(hbox2)
         vbox.addLayout(hbox3)
 
@@ -101,6 +104,11 @@ class MainWidget(QWidget):
         self.thisWindow.show()
 
     def repeat_clicked(self):
+        if (len(self.dbmanager.get_known_words())==0):
+            QMessageBox.information(
+                self, '알림', "복습할 단어가 없습니다.",
+                QMessageBox.Yes)
+            return
         self.thisWindow = RepeatWidget()
         self.thisWindow.show()
     
