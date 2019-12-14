@@ -17,6 +17,7 @@ class QuizWidget(QWidget):
         self.quiz_maker = QuizMaker(self.db_manager.get_unknown_words())
         if (len(self.quiz_maker.get_example())<3):
             # todo 사용자에게 데이터가 없습니다 라고 알림
+            self.close()
             return
 
         self.answer_btn1 = QPushButton(self.quiz_maker.get_example()[0])
@@ -91,6 +92,7 @@ class QuizWidget(QWidget):
                 self.text_label.setText("정답입니다!")
                 self.text_label.setStyleSheet("background-color: rgb(233, 211, 245, 0); color: rgb(34,177,76)")
                 self.text_label.setFont(QtGui.QFont("함초롬돋움", 15))
+                self.db_manager.solve_quiz(self.quiz_maker.get_problem())
             else:
                 self.text_label.setText("정답은 "+self.quiz_maker.get_answer()+" 입니다")
                 self.text_label.setStyleSheet("background-color: rgb(233, 211, 245, 0); color: rgb(255,0,0)")
@@ -114,17 +116,6 @@ class QuizWidget(QWidget):
 
 if __name__ == '__main__':
     import sys
-    # from gtts import gTTS
-    # import pygame
-    # from io import BytesIO
-    # mp3_fp = BytesIO()
-    # tts = gTTS('hello', 'en')
-    # tts.write_to_fp(mp3_fp.)
-    #
-    # pygame.mixer.init()
-    # pygame.mixer.music.load()
-    # pygame.mixer.music.play()
-
     app = QApplication(sys.argv)
     ex = QuizWidget()
     sys.exit(app.exec_())
