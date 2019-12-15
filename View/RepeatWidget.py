@@ -7,6 +7,7 @@ from PyQt5.QtCore import *
 
 from DBManager import DBManager
 from QuizMaker import QuizMaker
+from WordSpeaker import WordSpeaker
 
 
 class RepeatWidget(QWidget):
@@ -15,15 +16,16 @@ class RepeatWidget(QWidget):
         super(RepeatWidget, self).__init__()
         self.db_manager = DBManager.instance()
         self.quiz_maker = QuizMaker(self.db_manager.get_known_words())
-        self.answer_btn1 = QPushButton(self.quiz_maker.get_example()[0])
-        self.answer_btn2 = QPushButton(self.quiz_maker.get_example()[1])
-        self.answer_btn3 = QPushButton(self.quiz_maker.get_example()[2])
+        self.word_speaker = WordSpeaker()
         self.problem_label = QLabel(self.quiz_maker.get_problem())
         self.next_btn = QPushButton()
+        self.answer_line_edit = QLineEdit()
+        self.text_label = QLabel()
         self.has_answer = False
 
-        self.text_label = QLabel()
         self.init__ui()
+
+        self.word_speaker.speak(self.quiz_maker.get_problem())
 
     def init__ui(self):
         self.resize(700, 540)
@@ -37,25 +39,20 @@ class RepeatWidget(QWidget):
         quiz_label.setAlignment(Qt.AlignCenter)
         quiz_label.setFont(QtGui.QFont("Arial Rounded MT Bold", 20))
 
-        self.problem_label.setAlignment(Qt.AlignCenter)
-        self.problem_label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.problem_label.setStyleSheet("color:black;")
-        self.problem_label.setAlignment(Qt.AlignCenter)
-        self.problem_label.setFont(QtGui.QFont("Arial Rounded MT Bold", 33))
+        play_button = QPushButton('▶')
+        input_button = QPushButton('입력')
+        input_button.clicked.connect(self.answer_btns_clicked)
+        play_button.clicked.connect(self.play_btn_clicked)
 
-        answer_layout = QHBoxLayout()
+        self.answer_line_edit.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
 
-        self.answer_btn1.setStyleSheet("background-color: rgb(233, 211, 245, 100)")
-        self.answer_btn2.setStyleSheet("background-color: rgb(233, 211, 245, 100)")
-        self.answer_btn3.setStyleSheet("background-color: rgb(233, 211, 245, 100)")
-
-        self.answer_btn1.clicked.connect(self.answer_btns_clicked)
-        self.answer_btn2.clicked.connect(self.answer_btns_clicked)
-        self.answer_btn3.clicked.connect(self.answer_btns_clicked)
-
-        answer_layout.addWidget(self.answer_btn1)
-        answer_layout.addWidget(self.answer_btn2)
-        answer_layout.addWidget(self.answer_btn3)
+        hlayout = QHBoxLayout()
+        hlayout.addSpacing(30)
+        hlayout.addWidget(play_button)
+        hlayout.addSpacing(30)
+        hlayout.addWidget(self.answer_line_edit)
+        hlayout.addSpacing(10)
+        hlayout.addWidget(input_button)
 
         self.next_btn.setIcon(QIcon("../resource/icon/ic_right_arrow.png"))
         self.next_btn.setStyleSheet("background-color: rgb(233, 211, 245, 0)")
@@ -70,10 +67,8 @@ class RepeatWidget(QWidget):
         bottom_layout.addWidget(self.next_btn)
 
         main_layout.addWidget(quiz_label)
-        main_layout.addStretch(1)
-        main_layout.addWidget(self.problem_label)
-        main_layout.addStretch(3)
-        main_layout.addLayout(answer_layout)
+        main_layout.addStretch(4)
+        main_layout.addLayout(hlayout)
         main_layout.addStretch(1)
         main_layout.addLayout(bottom_layout)
 
@@ -81,9 +76,10 @@ class RepeatWidget(QWidget):
         self.show()
 
     def answer_btns_clicked(self):
-        answer = self.sender().text()
+        answer = self.answer_line_edit.text()
+        print(answer,self.quiz_maker.get_problem())
         if self.has_answer is False:
-            if self.quiz_maker.get_answer() == answer:
+            if self.quiz_maker.get_problem() == answer:
                 self.text_label.setText("정답입니다!")
                 self.text_label.setStyleSheet("background-color: rgb(233, 211, 245, 0); color: rgb(0,255,0)")
                 self.text_label.setFont(QtGui.QFont("함초롬돋움", 14))
@@ -98,14 +94,16 @@ class RepeatWidget(QWidget):
     def next_btn_clicked(self):
         if self.has_answer is True:
             self.quiz_maker.new_problem()
-            example = self.quiz_maker.get_example()
-            self.problem_label.setText(self.quiz_maker.get_problem())
-            self.answer_btn1.setText(example[0])
-            self.answer_btn2.setText(example[1])
-            self.answer_btn3.setText(example[2])
+            answer = self.quiz_maker.get_problem()
+            self.problem_label.setText(answer)
             self.next_btn.hide()
             self.text_label.hide()
             self.has_answer = False
+            self.word_speaker.speak(answer)
+
+    def play_btn_clicked(self):
+        answer = self.quiz_maker.get_problem()
+        self.word_speaker.speak(answer)
 
 
 if __name__ == '__main__':
