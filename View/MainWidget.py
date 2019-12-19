@@ -7,7 +7,7 @@ from PyQt5.QtCore import *
 from DBManager import DBManager
 from View.DailyWidget import DailyWidget
 from View.QuizWidget import QuizWidget
-from View.WordWidget import WordWidget
+from View.WordsWidget import WordWidget
 from View.RepeatWidget import RepeatWidget
 
 
@@ -92,6 +92,11 @@ class MainWidget(QWidget):
         self.setLayout(vbox)
 
     def daily_clicked(self):
+        if (len(self.dbmanager.get_known_words()) < 20):
+            QMessageBox.information(
+                self, '알림', "단어가 부족합니다.",
+                QMessageBox.Yes)
+            return
         self.thisWindow = DailyWidget()
         self.thisWindow.show()
 
@@ -116,7 +121,6 @@ class MainWidget(QWidget):
         if event.key() == Qt.Key_Escape:
             self.dbmanager.save()
             self.close()
-
 
 
 if __name__ == "__main__":

@@ -39,10 +39,14 @@ class RepeatWidget(QWidget):
         quiz_label.setAlignment(Qt.AlignCenter)
         quiz_label.setFont(QtGui.QFont("Arial Rounded MT Bold", 20))
 
-        play_button = QPushButton('▶')
+
         input_button = QPushButton('입력')
         input_button.clicked.connect(self.answer_btns_clicked)
+        input_button.setStyleSheet("background-color: rgb(233, 211, 245, 100)")
+
+        play_button = QPushButton('▶')
         play_button.clicked.connect(self.play_btn_clicked)
+        play_button.setStyleSheet("background-color: rgb(233, 211, 245, 100)")
 
         self.answer_line_edit.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
 

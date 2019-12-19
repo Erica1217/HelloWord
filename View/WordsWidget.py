@@ -56,6 +56,10 @@ class WordWidget(QWidget):
         self.set_table_widget(self.known_tab, self.dbManager.get_known_words())
         self.set_table_widget(self.unknown_tab, self.dbManager.get_unknown_words())
 
+        self.all_tab.cellClicked.connect(self.word_clicked)
+        self.known_tab.cellClicked.connect(self.word_clicked)
+        self.unknown_tab.cellClicked.connect(self.word_clicked)
+
         tab_widget.addTab(self.all_tab, "All")
         tab_widget.addTab(self.unknown_tab, "Unknown")
         tab_widget.addTab(self.known_tab, "Known")
@@ -78,7 +82,7 @@ class WordWidget(QWidget):
             table_widget.setItem(i, 0, QTableWidgetItem(str(word.eng)))
             table_widget.setItem(i, 1, QTableWidgetItem(str(word.kor)))
             i += 1
-        table_widget.cellClicked.connect(self.word_clicked)
+
         table_widget.setHorizontalHeaderLabels(["영어", "뜻"])
 
     def add_btn_clicked(self):
@@ -94,13 +98,14 @@ class WordWidget(QWidget):
         sender = self.sender()
         word = sender.item(row, col).text()
         WordSpeaker.speak(word)
+        print(word)
 
-    def eventFilter(self, object, event):
-        if event.type() == QtCore.QEvent.WindowActivate or event.type() == QtCore.QEvent.FocusIn:
-            self.set_table_widget(self.all_tab, self.dbManager.get_all_words())
-            self.set_table_widget(self.known_tab, self.dbManager.get_known_words())
-            self.set_table_widget(self.unknown_tab, self.dbManager.get_unknown_words())
-        return False
+    # def eventFilter(self, object, event):
+    #     if event.type() == QtCore.QEvent.WindowActivate or event.type() == QtCore.QEvent.FocusIn:
+    #         self.set_table_widget(self.all_tab, self.dbManager.get_all_words())
+    #         self.set_table_widget(self.known_tab, self.dbManager.get_known_words())
+    #         self.set_table_widget(self.unknown_tab, self.dbManager.get_unknown_words())
+    #     return False
 
 
 if __name__ == "__main__":

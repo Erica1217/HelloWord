@@ -79,19 +79,19 @@ class AddWidget(QWidget):
         vlayout.addLayout(top_layout)
         vlayout.addLayout(bottom_layout)
 
-        ok_btn.clicked.connect(self.ok_btn)
-        import_btn.clicked.connect(self.import_csv_btn)
+        ok_btn.clicked.connect(self.ok_btn_clicked)
+        import_btn.clicked.connect(self.import_csv_btn_clicked)
 
         self.setLayout(vlayout)
 
-    def ok_btn(self):
+    def ok_btn_clicked(self):
         eng = self.eng_edit.text()
         kor = self.kor_edit.text()
         self.dbManager.add_word(eng, kor)
         self.eng_edit.setText('')
         self.kor_edit.setText('')
 
-    def import_csv_btn(self):
+    def import_csv_btn_clicked(self):
         csv_path = QFileDialog.getOpenFileName(self)
         print(csv_path[0])
         if len(csv_path[0])>=4 and csv_path[0][-4:]==".csv":

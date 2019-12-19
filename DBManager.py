@@ -57,6 +57,7 @@ class DBManager:
         self.__all_words[eng].count += 1
         if self.__all_words[eng].count == self.GRADE_CUT and eng in self.__unknown_words:
             self.__known_words[eng] = self.__all_words[eng]
+            del self.__unknown_words[eng]
 
     def get_all_words(self):
         return self.__all_words
@@ -80,7 +81,8 @@ class DBManager:
                 self.__daily_words = data[3]
                 pre_time = data[4]
                 now = datetime.now()
-                if pre_time.year != now.year or pre_time.month != now.month or pre_time.day != now.day:
+                print(pre_time, now)
+                if pre_time.year != now.year or pre_time.month != now.month or pre_time.day != now.day or len(self.__daily_words)==0:
                     if len(self.__unknown_words.values()) >= 20:
                         self.__daily_words = random.sample(list(self.__unknown_words.values()), 20)
                     else:
