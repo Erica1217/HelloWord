@@ -1,3 +1,6 @@
+# 소프트웨어 상세 설계서
+
+
 # App
 > 이 프로그램의 메인. 최초실행
 - __init__()
@@ -38,7 +41,7 @@
 - add_btn_clicked()
 - word_clicked()
 
-## QuizWidget(Qwidget)
+## QuizWidget(QWidget)
 > Study Widget 리턴
 - (DBManager) db_manager
 - (QuizMaker) quiz_maker
